@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Journal | Devmountain Foundations</title>
+
+    <link
+      href="_static/pygments.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link href="_static/devmountain.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+
+    <script src="_static/pdfobject.min.js"></script>
+  </head>
+  <body>
+    <div id="handouts-container">
+      <header id="page-header">
+        <p id="project-title">Devmountain Foundations</p>
+        <p id="page-title">Journal</p>
+        <p id="backlink">
+          <a href="/"> &laquo; Back to Homepage </a>
+        </p>
+      </header>
+
+      <nav id="page-toc"><ul>
+<li><a class="reference internal" href="#">Journal</a></li>
+<li><a class="reference internal" href="#day-one-model-objects-and-controllers">Day One - Model Objects and Controllers</a><ul>
+<li><a class="reference internal" href="#setup">Setup</a></li>
+<li><a class="reference internal" href="#entry">Entry</a></li>
+<li><a class="reference internal" href="#entrycontroller">EntryController</a></li>
+<li><a class="reference internal" href="#equatable-protocol">Equatable Protocol</a></li>
+<li><a class="reference internal" href="#entry-list-view">Entry List View</a></li>
+<li><a class="reference internal" href="#pause-and-test-things-out">Pause and test things out….</a></li>
+<li><a class="reference internal" href="#detail-view">Detail View</a></li>
+<li><a class="reference internal" href="#segue">Segue</a></li>
+<li><a class="reference internal" href="#wrap-up-detail-view">Wrap-Up Detail View</a></li>
+<li><a class="reference internal" href="#add-data-persistence-functionality-to-the-entrycontroller">Add Data Persistence functionality to the EntryController</a></li>
+<li><a class="reference internal" href="#creating-the-url">Creating the URL</a></li>
+<li><a class="reference internal" href="#saving-data-to-the-url">Saving data to the URL</a></li>
+<li><a class="reference internal" href="#quick-lesson-on-local-urls">Quick lesson on local urls</a></li>
+<li><a class="reference internal" href="#loading-data-from-the-url">Loading data from the URL</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+
+      <main id="page-content">  <section class="section" id="journal">
+<h1>Journal</h1>
+<p>Students will build a simple journal app to practice MVC separation, segues, table views, and persistence.</p>
+<p>Journal is an excellent app to practice basic Cocoa Touch principles and design patterns. Students are encouraged to repeat building journal regularly until they master the principles and patterns, eventually being able to build journal without the help of a guide.</p>
+<p>Students who complete this project independently can:</p>
+<p><strong>Day One</strong></p>
+<ul class="simple">
+<li><p>Understand basic model-view-controller design and implementation</p></li>
+<li><p>Create a custom model object with a memberwise initializer</p></li>
+<li><p>Understand, create, and use a shared instance</p></li>
+<li><p>Create a model object controller with create and delete functions</p></li>
+<li><p>Implement the Equatable protocol</p></li>
+<li><p>Understand and implement the <code class="docutils literal notranslate"><span class="pre">UITextFieldDelegate</span></code> protocol to dismiss the keyboard</p></li>
+<li><p>Create relationship segues in Storyboards</p></li>
+<li><p>Implement <code class="docutils literal notranslate"><span class="pre">prepare(for</span> <span class="pre">segue:</span> <span class="pre">UIStoryboardSegue,</span> <span class="pre">sender:</span> <span class="pre">Any?)</span></code> to configure destination view controllers</p></li>
+<li><p>Understand, use, and implement the <code class="docutils literal notranslate"><span class="pre">updateViews</span></code> pattern</p></li>
+<li><p>Save and load data using JSON Persistence and the Codable protocol</p></li>
+</ul>
+<p><strong>Day Two</strong></p>
+<ul class="simple">
+<li><p>Be able to use multiple models in the mvc design pattern</p></li>
+<li><p>Be able to refactor an application to reference a new source of truth</p></li>
+<li><p>Implement an update function on the model controller to update existing data</p></li>
+</ul>
+</section>
+<section class="section" id="day-one-model-objects-and-controllers">
+<h1>Day One - Model Objects and Controllers</h1>
+<section class="section" id="setup">
+<h2>Setup</h2>
+<ol class="arabic simple">
+<li><p>Make sure you have downloaded this project</p></li>
+<li><p>Create a file structure to organize your code (ex. Resources, Views, etc…). Don’t forget to fix the file path for your info.plist</p></li>
+</ol>
+<ul class="simple">
+<li><p>Note: When using git, it is best to not create a folder (ex. Model Controller) until you have a file to put in the folder. Git does not like tracking empty folders. You can use placeholder .swift files, if you would like (ex: placeholderViewController.swift)</p></li>
+</ul>
+</section>
+<section class="section" id="entry">
+<h2>Entry</h2>
+<p>Create an Entry model class that will hold title, text, and timestamp properties for each entry.</p>
+<ol class="arabic simple">
+<li><p>Add a new <code class="docutils literal notranslate"><span class="pre">Entry.swift</span></code> file and define a new <code class="docutils literal notranslate"><span class="pre">Entry</span></code> class.</p></li>
+<li><p>Add properties for title, body and timestamp (hint: timestamp should NOT be a String or an Int).</p></li>
+<li><p>Add a memberwise initializer that takes parameters for each property.</p></li>
+</ol>
+<ul class="simple">
+<li><p>Consider setting a default parameter value for the timestamp.</p></li>
+</ul>
+</section>
+<section class="section" id="entrycontroller">
+<h2>EntryController</h2>
+<p>Create a model object controller called <code class="docutils literal notranslate"><span class="pre">EntryController</span></code> that will manage creating and deleting entries.</p>
+<ol class="arabic simple">
+<li><p>Add a new <code class="docutils literal notranslate"><span class="pre">EntryController.swift</span></code> file and define a new <code class="docutils literal notranslate"><span class="pre">EntryController</span></code> class.</p></li>
+<li><p>Create a <code class="docutils literal notranslate"><span class="pre">shared</span></code> property as a shared instance (hint: remember, shared instances require an important keyword at the beginning of the line of code).</p></li>
+<li><p>Add an <code class="docutils literal notranslate"><span class="pre">entries</span></code> array property, and set its value to an empty array of <code class="docutils literal notranslate"><span class="pre">Entry</span></code>.</p></li>
+<li><p>Create a <code class="docutils literal notranslate"><span class="pre">createEntryWith(title:</span> <span class="pre">...)</span></code> function that takes in a <code class="docutils literal notranslate"><span class="pre">title</span></code> and <code class="docutils literal notranslate"><span class="pre">body</span></code>. It should create a new instance of <code class="docutils literal notranslate"><span class="pre">Entry</span></code> and add it to the <code class="docutils literal notranslate"><span class="pre">entries</span></code> array.</p></li>
+<li><p>Create a <code class="docutils literal notranslate"><span class="pre">delete(entry:</span> <span class="pre">Entry)</span></code> function that removes an entry from the entries array.</p></li>
+</ol>
+<ul class="simple">
+<li><p>There is no <code class="docutils literal notranslate"><span class="pre">removeObject</span></code> function on arrays. You will need to first find the index of the object, and then remove the object at that index.</p></li>
+<li><p>You will face a compiler error because we have not given the Entry class a way to find equal objects. To resolve the error, implement the Equatable protocol in the next step.</p></li>
+</ul>
+</section>
+<section class="section" id="equatable-protocol">
+<h2>Equatable Protocol</h2>
+<p>Implement the Equatable protocol for the Entry class. The Equatable protocol helps to check for equality between variables of a specific class. To ensure that the two objects we are comparing are the same, we will need to make sure the values of all the variables (title, body, and timestamp) are the same.</p>
+<ol class="arabic simple">
+<li><p>Conform to the Equatable protocol in an extension at the bottom of the <code class="docutils literal notranslate"><span class="pre">Entry.swift</span></code> file (outside of the Entry class). This will prompt you with an error - use the fix button to add the necessary protocol stub (function).</p></li>
+<li><p>Return the result of the comparison between the <code class="docutils literal notranslate"><span class="pre">lhs</span></code> and <code class="docutils literal notranslate"><span class="pre">rhs</span></code> parameters by checking the property values on each parameter.</p></li>
+<li><p>If you have not already, now go back to your EntryController and finish building out the delete function.</p></li>
+</ol>
+</section>
+<section class="section" id="entry-list-view">
+<h2>Entry List View</h2>
+<p>Build a view that lists all journal entries. Use a UITableViewController and implement the UITableViewDataSource functions.</p>
+<p>The UITableViewController subclass template comes with a lot of boilerplate and commented code. For readability, please remove all unnecessary boilerplate from the code.</p>
+<p>This view will reload the table view each time it appears in order to display newly created entries.</p>
+<ol class="arabic simple">
+<li><p>Add a UITableViewController as the root view controller in Main.storyboard and embed it into a UINavigationController.</p></li>
+<li><p>Create an <code class="docutils literal notranslate"><span class="pre">EntryListTableViewController</span></code> file as a subclass of UITableViewController. Set the class of the root view controller scene in your Main.storyboard to be an <code class="docutils literal notranslate"><span class="pre">EntryListTableViewController</span></code>.</p></li>
+<li><p>Implement the UITableViewDataSource functions, using the EntryController <code class="docutils literal notranslate"><span class="pre">entries</span></code> array as your source of truth. Pay attention to the <code class="docutils literal notranslate"><span class="pre">reuseIdentifier</span></code> in the Storyboard scene and the <code class="docutils literal notranslate"><span class="pre">dequeueReusableCell(withIdentifier:for:)</span></code> function call.</p></li>
+<li><p>Set up the cells to display the title of the entry (hint: this will need to be done in the cellForRowAt method). Do not forget to set your cell type to <code class="docutils literal notranslate"><span class="pre">basic</span></code> on your view controller scene.</p></li>
+<li><p>Implement the UITableViewDataSource <code class="docutils literal notranslate"><span class="pre">tableView(_:commit:forRowAt:)</span></code> function to enable swipe to delete functionality.</p></li>
+<li><p>Add a UIBarButtonItem to the UINavigationBar. Select <code class="docutils literal notranslate"><span class="pre">Add</span></code> in the System Item menu dropdown, on the Identity Inspector, to set the button as a plus symbol. Don’t do anything further with this button, we will take care of it later.</p></li>
+</ol>
+</section>
+<section class="section" id="pause-and-test-things-out">
+<h2>Pause and test things out….</h2>
+<p>If you run your application now, you should see a tableView with nothing on it. You should also see a plus button in the top right corner that, when tapped, does nothing. While this is correct, it doesn’t really give us a way of testing out our code. At the moment, we still have a bit more to implement before we can test anything. This is where mock data becomes useful. In your viewDidLoad lifecycle method, after super.viewDidLoad(), add the following code <code class="docutils literal notranslate"><span class="pre">EntryController.shared.createEntryWith(title:</span> <span class="pre">&quot;Test</span> <span class="pre">Title&quot;,</span> <span class="pre">body:</span> <span class="pre">&quot;Test</span> <span class="pre">Body&quot;)</span></code>, followed by <code class="docutils literal notranslate"><span class="pre">tableView.reloadData()</span></code></p>
+<p>Re-run your app. You should now see an entry on your tableView with the title “Test Title”. Clicking on it won’t do anything yet, however, you should be able to swipe to delete. If you can see “Test Title” and are able to delete it, your code is in a good place and you can move on. If not, spend 20 minutes to try and work it out. If you cannot solve your problem in 20 minutes, post a message in the queue channel on discord.</p>
+<p>Once you have everything working, make sure to remove the two lines of code we added to the viewDidLoad lifecycle method.</p>
+</section>
+<section class="section" id="detail-view">
+<h2>Detail View</h2>
+<p>Build a view that allows a user to create a new entry or view an existing one. Use a UITextField to capture the title, a UITextView to capture the body, a UIBarButtonItem to save the new entry, and a UIButton to clear the title and body text areas.</p>
+<p>The Detail View should follow the <code class="docutils literal notranslate"><span class="pre">updateViews</span></code> pattern for updating the view elements with the details of a model object. To follow this pattern, add an <code class="docutils literal notranslate"><span class="pre">updateViews</span></code> function that checks for a model object. The function updates the view with details from the model object.</p>
+<ol class="arabic simple">
+<li><p>Add an <code class="docutils literal notranslate"><span class="pre">EntryDetailViewController</span></code> file as a subclass of UIViewController and add an optional <code class="docutils literal notranslate"><span class="pre">entry</span></code> property to the class. You can remove the navigation boiler-plate code.</p></li>
+<li><p>Add a UIViewController scene to Main.storyboard and set the class to <code class="docutils literal notranslate"><span class="pre">EntryDetailViewController</span></code></p></li>
+<li><p>Add a UITextField for the entry’s title text to the top of the scene (don’t forget to constrain it), add an outlet to the class file called <code class="docutils literal notranslate"><span class="pre">titleTextField</span></code>.</p></li>
+<li><p>Select your UITextField and give it a default placeholder of “Enter title here…”</p></li>
+<li><p>Add a UITextView for the entry’s body text beneath the title text field and add an outlet to the class file <code class="docutils literal notranslate"><span class="pre">bodyTextView</span></code>.</p></li>
+<li><p>Give the UITextView a default text of “Write entry here… “</p></li>
+<li><p>Add a UIButton beneath the body text view and add an IBAction to the class file that clears the text in the titleTextField and bodyTextView.</p></li>
+</ol>
+<p>Now, we need to add a save button to the top right corner, but our navigation bar is not present because we have not created a segue from the <code class="docutils literal notranslate"><span class="pre">EntryListTableViewController</span></code> yet. So let’s do that, and then we can wrap up our detail view.</p>
+</section>
+<section class="section" id="segue">
+<h2>Segue</h2>
+<p>Add two separate segues from the List View to the Detail View. The segue from the plus button will tell the EntryDetailViewController that it should create a new entry. The segue from a selected cell will tell the EntryDetailViewController that it should display a previously created entry.</p>
+<ol class="arabic simple">
+<li><p>Add a <code class="docutils literal notranslate"><span class="pre">show</span></code> segue from the Add button to the EntryDetailViewController scene. This segue will not need an identifier since we will not be passing information using this segue.</p></li>
+<li><p>Add a <code class="docutils literal notranslate"><span class="pre">show</span></code> segue from the table view cell to the EntryDetailViewController scene and give the segue an identifier. <em>When naming the identifier, consider that this segue will be used not only to display an existing entry but also to edit an entry( more on this in day 2)</em>.</p></li>
+<li><p>Add a <code class="docutils literal notranslate"><span class="pre">prepare(for</span> <span class="pre">segue:</span> <span class="pre">UIStoryboardSegue,</span> <span class="pre">sender:</span> <span class="pre">Any?)</span></code> function to the EntryListTableViewController (hint: this comes as part of the boiler-plate code, all you should have to do is uncomment it).</p></li>
+<li><p>Implement the <code class="docutils literal notranslate"><span class="pre">prepare(for</span> <span class="pre">segue:</span> <span class="pre">UIStoryboardSegue,</span> <span class="pre">sender:</span> <span class="pre">Any?)</span></code> function. If the identifier is <code class="docutils literal notranslate"><span class="pre">showEntry</span></code> (or whatever name you used on Step 2) we will pass the selected entry to the DetailViewController, which will call our <code class="docutils literal notranslate"><span class="pre">updateViews()</span></code> function (which we will create shortly).</p></li>
+</ol>
+<ul class="simple">
+<li><p>You will need to capture the selected entry by using the indexPath of the selected row.</p></li>
+<li><p>Remember that the <code class="docutils literal notranslate"><span class="pre">updateViews()</span></code> function will update the destination view controller with the entry details.</p></li>
+</ul>
+</section>
+<section class="section" id="wrap-up-detail-view">
+<h2>Wrap-Up Detail View</h2>
+<p>Hop back to your <code class="docutils literal notranslate"><span class="pre">EntryDetailViewController</span></code> and finish out the remaining steps.</p>
+<ol class="arabic simple">
+<li><p>Add a UIBarButtonItem to the UINavigationBar as a <code class="docutils literal notranslate"><span class="pre">Save</span></code> System Item and add an IBAction to the class file called <code class="docutils literal notranslate"><span class="pre">saveButtonTapped</span></code>.</p></li>
+<li><p>In the <code class="docutils literal notranslate"><span class="pre">saveButtonTapped</span></code> IBAction, using an if let (conditional unwrapping), check if the optional <code class="docutils literal notranslate"><span class="pre">entry</span></code> property holds an entry. If it does, add a print statement that says “to be implemented tomorrow”. If not (meaning if the <code class="docutils literal notranslate"><span class="pre">entry</span></code> property is nil), call the <code class="docutils literal notranslate"><span class="pre">createEntryWith()</span></code> function that lives on the <code class="docutils literal notranslate"><span class="pre">EntryController</span></code>. This will require you to use your outlets to access the values  in the titleTextField and bodyTextView.</p></li>
+<li><p>Still inside the <code class="docutils literal notranslate"><span class="pre">saveButtonTapped</span></code> IBAction, but outside the scope of the if let, add code to dismiss the current view and pop back to the <code class="docutils literal notranslate"><span class="pre">EntryListTableViewController</span></code>.</p></li>
+<li><p>Add an <code class="docutils literal notranslate"><span class="pre">updateViews()</span></code> function that checks if the optional <code class="docutils literal notranslate"><span class="pre">entry</span></code> property holds an entry (hint: use a guard statement to do this). If it does, implement the function to update all view elements that reflect details about the model object <code class="docutils literal notranslate"><span class="pre">entry</span></code> (in this case, the titleTextField and bodyTextView)</p></li>
+<li><p>Update the <code class="docutils literal notranslate"><span class="pre">viewDidLoad()</span></code> function to call <code class="docutils literal notranslate"><span class="pre">updateViews()</span></code></p></li>
+</ol>
+<p>At this point your app should be working almost perfectly. You might notice, however, when you create a new entry and navigate back to the <code class="docutils literal notranslate"><span class="pre">EntryListTableViewController</span></code>, your new entry is not there. To fix this, call the method to reload your tableView’s data inside of the <code class="docutils literal notranslate"><span class="pre">viewWillAppear()</span></code> function on your TableViewController (hint: you will need to add this lifecycle method, viewWillAppear, to your code).</p>
+<p>At this point, everything should be working. However, we do still have one final problem. If we stop the app and re-run it, none of our data is there. To solve this, we are going to need to add persistence.</p>
+</section>
+<section class="section" id="add-data-persistence-functionality-to-the-entrycontroller">
+<h2>Add Data Persistence functionality to the EntryController</h2>
+<p>Our <code class="docutils literal notranslate"><span class="pre">EntryController</span></code> object is the source of truth for entries. We are now going to add a layer of persistent storage. We need to update the <code class="docutils literal notranslate"><span class="pre">EntryController</span></code> to save the entries array to persistent storage when a change happens (whether it be an entry is created or deleted). We will also need to create the functionality to save to the persistent store and load from it.</p>
+</section>
+<section class="section" id="creating-the-url">
+<h2>Creating the URL</h2>
+<ol class="arabic simple">
+<li><p>Copy and paste this method into the project. Note that this method returns a URL, which is the URL for the file location where we will be saving our data.</p></li>
+</ol>
+<div class="highlight-swift notranslate"><div class="highlight"><pre><span></span><span class="kd">private</span> <span class="kd">func</span> <span class="nf">fileURL</span><span class="p">()</span> <span class="p">-&gt;</span> <span class="n">URL</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nv">urls</span> <span class="p">=</span> <span class="n">FileManager</span><span class="p">.</span><span class="k">default</span><span class="p">.</span><span class="n">urls</span><span class="p">(</span><span class="k">for</span><span class="p">:</span> <span class="p">.</span><span class="n">documentDirectory</span><span class="p">,</span> <span class="k">in</span><span class="p">:</span> <span class="p">.</span><span class="n">userDomainMask</span><span class="p">)</span>
+    <span class="kd">let</span> <span class="nv">documentsDirectoryURL</span> <span class="p">=</span> <span class="n">urls</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">appendingPathComponent</span><span class="p">(</span><span class="s">&quot;Journal.json&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">documentsDirectoryURL</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section class="section" id="saving-data-to-the-url">
+<h2>Saving data to the URL</h2>
+<ol class="arabic simple">
+<li><p>Write a method called <code class="docutils literal notranslate"><span class="pre">saveToPersistentStorage()</span></code> that will save the current entries array to a file on disk.</p></li>
+<li><p>Call <code class="docutils literal notranslate"><span class="pre">encode(value:</span> <span class="pre">Encodable)</span> <span class="pre">throws</span></code> on an instance of JSONEncoder, passing in the array of entries as the Encodable argument. Assign the return of this function to a constant named <code class="docutils literal notranslate"><span class="pre">data</span></code>. _**NOTE - The objects in the array need to be <code class="docutils literal notranslate"><span class="pre">Codable</span></code> objects.** Go back to the Entry class and adopt the Codable protocol. Please see Encoding &amp; Decoding Custom Types:  <a class="reference external" href="https://developer.apple.com/documentation/foundation/archives_and_serialization/encoding_and_decoding_custom_types" rel="noreferrer noopener" target="_blank">https://developer.apple.com/documentation/foundation/archives_and_serialization/encoding_and_decoding_custom_types</a> or reference the guided lecture from this morning.</p></li>
+<li><p>Notice that this function throws; that means that this function will throw an error if it does not work the way it should when called. Functions that throw need to be marked with <code class="docutils literal notranslate"><span class="pre">try</span></code> in front of the function call. Put this call inside a <strong>do try catch block</strong> and <code class="docutils literal notranslate"><span class="pre">catch</span></code> any error that throws.</p></li>
+<li><p>Call <code class="docutils literal notranslate"><span class="pre">data.write(to:</span> <span class="pre">URL)</span></code> This function asks for a URL. We can pass in the <code class="docutils literal notranslate"><span class="pre">fileURL()</span></code> as an argument, which will write the data at the URL. <em>Hint - This is also a throwing function and needs ALL the parts of a do try catch block.</em></p></li>
+<li><p>Call <code class="docutils literal notranslate"><span class="pre">saveToPersistentStorage()</span></code> any time that the list of entries is modified (CRUD functions).</p></li>
+</ol>
+</section>
+<section class="section" id="quick-lesson-on-local-urls">
+<h2>Quick lesson on local urls</h2>
+<p>The screenshot below shows how local URLs work. URLs are not just web-based. On the computer, there are local file URLs. Open the finder and right-click to <code class="docutils literal notranslate"><span class="pre">get</span> <span class="pre">info</span></code>. When done, it will show the location of the folder on the local machine. For example, Joey’s Mac / Desktop / Dev Mountain Bank / etc.</p>
+<p>Local files are separated by components which are forward-slashes. Extensions are . (dots). Images are a good example of extensions such as .jpg or .png. In the above code, we are saving our information as .json data.</p>
+<img alt="_images/filePath.png" src="_images/filePath.png" style="width: 1000px;" />
+</section>
+<section class="section" id="loading-data-from-the-url">
+<h2>Loading data from the URL</h2>
+<ol class="arabic simple">
+<li><p>Write a method called <code class="docutils literal notranslate"><span class="pre">loadFromPersistentStorage()</span></code> that will load the current data from the file on disk where we saved our entries(data).</p></li>
+<li><p>Create a constant called <code class="docutils literal notranslate"><span class="pre">data</span></code> to hold the data that you will get back by calling <code class="docutils literal notranslate"><span class="pre">Data(contentsOf:)</span></code>. Now pass in the <code class="docutils literal notranslate"><span class="pre">fileURL()</span></code> as an argument (hint: this is a throwing function).</p></li>
+<li><p>Call <code class="docutils literal notranslate"><span class="pre">decode(from:)</span></code> on an instance of the JSONDecoder. Assign the return of this function to a constant named <code class="docutils literal notranslate"><span class="pre">entries</span></code>. This function takes in two arguments: a type <code class="docutils literal notranslate"><span class="pre">[Entry].self</span></code> and your instance of data. It will decode the data into an array of Entry.</p></li>
+<li><p>Now set self.entries to this array of entries.</p></li>
+<li><p>Finally, you need to call the <code class="docutils literal notranslate"><span class="pre">loadFromPersistentStorage()</span></code> function. While there are many different places you could do this successfully, for now, go to the <code class="docutils literal notranslate"><span class="pre">viewDidLoad()</span></code> lifecycle method in your <code class="docutils literal notranslate"><span class="pre">EntryListTableViewController</span></code> and call <code class="docutils literal notranslate"><span class="pre">EntryController.shared.loadFromPersistentStorage()</span></code>.</p></li>
+</ol>
+<ul class="simple">
+<li><p>Note: The first time you run your app after implementing your persistence functions you will have no saved data, and therefore you will see an error message in your debug console. This is normal. After you have stored data you should not receive an error message when <code class="docutils literal notranslate"><span class="pre">loadFromPersistentStorage()</span></code> is called.</p></li>
+</ul>
+<p>Run the app; it should now function properly— make sure to thoroughly test for bugs. You should be able to:</p>
+<ol class="arabic simple">
+<li><p>Upon launch, see a tableView with all entries (there will be no entries if you haven’t created any yet, or have deleted all of them).</p></li>
+<li><p>Be able to click the add button in the top right corner and navigate to the <code class="docutils literal notranslate"><span class="pre">EntryDetailViewController</span></code>.</p></li>
+<li><p>Be able to hit the clear button at the bottom of the screen and see you text field and text view become empty.</p></li>
+<li><p>Click the save button in the top right corner of the <code class="docutils literal notranslate"><span class="pre">EntryDetailViewController</span></code> and be navigated back to the <code class="docutils literal notranslate"><span class="pre">EntryListTableViewController</span></code>, where you should then see your newly created entry.</p></li>
+<li><p>Be able to click on an entry in the <code class="docutils literal notranslate"><span class="pre">EntryListTableViewController</span></code> and be navigated to the <code class="docutils literal notranslate"><span class="pre">EntryDetailViewController</span></code> where you should see that entry’s title and body text (if you click save here it should simply navigate you back to the <code class="docutils literal notranslate"><span class="pre">EntryListTableViewController</span></code> and your debug console should prompt you with a message that says: “to be implemented tomorrow”).</p></li>
+</ol>
+</section>
+</section>
+ 
+      </main>
+
+      <footer id="page-footer">
+        <p>&copy; 2021 Devmountain</p>
+      </footer>
+    </div>
+
+    <script src="_static/main.js"></script>
+      <script src="_static/jquery.js"></script>
+      <script src="_static/underscore.js"></script>
+      <script src="_static/doctools.js"></script>
+  </body>
+</html>
