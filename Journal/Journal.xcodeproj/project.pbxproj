@@ -44,6 +44,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		546072E02857E0B000F60DF3 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				54D2C8E22847FA8F006D9EBE /* EntryDetailViewController.swift */,
+				54D2C8E02847F29D006D9EBE /* EntryListTableViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
 		54D2C8DC2847ED34006D9EBE /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -66,9 +75,8 @@
 				54D2C8E428484A6B006D9EBE /* README.md */,
 				54D2C8DC2847ED34006D9EBE /* Model */,
 				54D2C8DF2847EE0F006D9EBE /* Model Controller */,
+				546072E02857E0B000F60DF3 /* View Controllers */,
 				7EDA120D259D233600BBD350 /* Journal */,
-				54D2C8E02847F29D006D9EBE /* EntryListTableViewController.swift */,
-				54D2C8E22847FA8F006D9EBE /* EntryDetailViewController.swift */,
 				7EDA120C259D233600BBD350 /* Products */,
 			);
 			sourceTree = "<group>";
